@@ -1,0 +1,64 @@
+procedure
+1) create virtual environment if python version is less than 3.11
+2) pip install django ollama pydantic pymupdf.
+3) django-admin startproject config .
+4) cd config
+5) python manage.py startapp assistant
+6) mkdir templates
+mkdir static
+mkdir static\css
+mkdir static\js
+mkdir media
+mkdir media\pdfs
+
+
+In setting.py file
+7) Add assistant to INSTALLED_APPS:
+8) Update the templates configuration:  'DIRS': [BASE_DIR / 'templates'],
+9) STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+10)Stage 3: Create database models
+3. assistant/models.py
+
+python manage.py makemigrations
+python manage.py migrate
+
+11)  Stage 4: Connect Ollama to Django
+4. assistant/schemas.py
+
+12)  5. assistant/ai_engine.py
+This is your local AI engine.
+
+13) Stage 5: Django backend
+6. assistant/views.py
+This provides the dashboard and chat API.
+
+14) 7. assistant/urls.py
+15) 8. config/urls.py
+
+16) 9. templates/base.html
+10. templates/assistant/dashboard.html
+11. templates/assistant/chat.html
+
+17) Stage 7: Chat functionality
+12. static/js/chat.js
+13. static/css/style.css
+
+18) Stage 8: Conversation history page
+14. templates/assistant/history.html
+
+19) Stage 9: Run your application
+17. Start Ollama
+
+ollama list
+ollama pull llama3.2
+python manage.py runserver
+
+

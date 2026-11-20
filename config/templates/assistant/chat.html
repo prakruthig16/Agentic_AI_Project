@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<form id="csrfForm" hidden>
+    {% csrf_token %}
+</form>
+
+
+<div class="chat-container">
+
+    <div class="chat-header">
+        <div>
+            <h5><i class="bi bi-robot"></i> AI Teaching Assistant</h5>
+            <small>Powered by Ollama • Llama 3.2</small>
+        </div>
+
+        <button class="btn btn-outline-secondary btn-sm" onclick="clearChat()">
+            <i class="bi bi-trash"></i> Clear
+        </button>
+    </div>
+
+    
+<div id="chatMessages" class="chat-messages">
+
+    {% for message in selected_messages %}
+
+    <div class="message {% if message.role == 'user' %}user-message{% else %}assistant-message{% endif %}">
+
+        <div class="avatar">
+            <i class="bi {% if message.role == 'user' %}bi-person{% else %}bi-robot{% endif %}"></i>
+        </div>
+
+        <div class="message-content">{{ message.content }}</div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="message assistant-message">
+        <div class="avatar"><i class="bi bi-robot"></i></div>
+        <div class="message-content">
+            Hello! 👋 I am your AI Teaching Assistant.
+            Ask me anything about Python, AI, Machine Learning
+            or Agentic AI.
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+
+    <div class="chat-input-area">
+
+        <textarea id="question"
+                  class="form-control"
+                  placeholder="Ask your question..."
+                  rows="2"></textarea>
+
+        <button id="sendBtn" class="btn btn-primary" onclick="sendMessage()">
+            <i class="bi bi-send"></i> Send
+        </button>
+
+    </div>
+
+    <div class="chat-footer">
+        <small>Running locally using Ollama. No paid API required.</small>
+    </div>
+
+</div>
+
+<script src="{% static 'js/chat.js' %}"></script>
+
+{% endblock %}
